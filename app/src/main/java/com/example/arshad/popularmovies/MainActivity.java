@@ -13,7 +13,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.GridView;
 
 import org.json.JSONArray;
@@ -32,19 +31,16 @@ public class MainActivity extends AppCompatActivity {
 
     private final String api_key="c666b3c1cbc279a9c62d496263897871";
     private final String LOG_TAG = MainActivity.class.getSimpleName();
-    ArrayAdapter imageAdapter;
-
+    ImageAdapter imageAdapter;
+    ArrayList<String> movieList = new ArrayList<String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        imageAdapter = new ArrayAdapter<String>(
-                getApplicationContext(),
-                R.layout.grid_item_layout,
-                R.id.grid_item_text,
-                new ArrayList<String>());
+
+        imageAdapter = new ImageAdapter(this, movieList);
 
         GridView gridView = (GridView) findViewById(R.id.gridview_movies);
         gridView.setAdapter(imageAdapter);
@@ -62,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         updateMovieList();
+
     }
 
     //making the detail available
@@ -98,9 +95,9 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String[] result) {
             if (result != null){
-                imageAdapter.clear();
+                movieList.clear();
                 for (String movieStr : result){
-                    imageAdapter.add(movieStr);
+                    movieList.add(movieStr);
                 }
             }
         }
@@ -114,33 +111,37 @@ public class MainActivity extends AppCompatActivity {
          */
         private String[] getMovieInfoFromJson(String moviesJsonStr) throws JSONException {
             final String TMDB_RESULTS = "results";
-            final String TMDB_ORIGINAL_TITLE = "original_title";
+//            final String TMDB_ORIGINAL_TITLE = "original_title";
             final String TMDB_POSTER_PATH = "poster_path";
-            final String TMDB_OVERVIEW = "overview";
-            final String TMDB_VOTE_AVERAGE = "vote_average";
-            final String TMDB_RELEASE_DATE = "release_date";
+//            final String TMDB_OVERVIEW = "overview";
+//            final String TMDB_VOTE_AVERAGE = "vote_average";
+//            final String TMDB_RELEASE_DATE = "release_date";
 
             // Get the array containing hte movies found
             JSONObject moviesJson = new JSONObject(moviesJsonStr);
             JSONArray resultsArray = moviesJson.getJSONArray(TMDB_RESULTS);
 
-            String title ="";
+//            String title ="";
             String poster = "";
-            String details ="";
-            String rating = "";
-            String date ="";
+//            String details ="";
+//            String rating = "";
+//            String date ="";
             // Create array of Movie objects that stores data from the JSON string
             String[] movies = new String[resultsArray.length()];
+            mv:
             for (int i=0;i<resultsArray.length();i++){
                 JSONObject movieInfo = resultsArray.getJSONObject(i);
 
-                title = movieInfo.getString(TMDB_ORIGINAL_TITLE);
+//                title = movieInfo.getString(TMDB_ORIGINAL_TITLE);
                 poster = movieInfo.getString(TMDB_POSTER_PATH);
-                details = movieInfo.getString(TMDB_OVERVIEW);
-                rating = movieInfo.getString(TMDB_VOTE_AVERAGE);
-                date = movieInfo.getString(TMDB_RELEASE_DATE);
-
-                movies[i]=title+";"+"https://image.tmdb.org/t/p/w185"+poster+";"+details+";"+rating+";"+date;
+//                details = movieInfo.getString(TMDB_OVERVIEW);
+//                rating = movieInfo.getString(TMDB_VOTE_AVERAGE);
+//                date = movieInfo.getString(TMDB_RELEASE_DATE);
+                if (poster == null){
+                    continue mv;
+                }else {
+                    movies[i] = "https://image.tmdb.org/t/p/w185" + poster;
+                }
             }
             for (String s : movies) {
                 Log.v(LOG_TAG, "Movie entry: " + s);
@@ -230,6 +231,7 @@ public class MainActivity extends AppCompatActivity {
             return null;
         }
     }
+
 
 
 }
