@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        imageAdapter = new ImageAdapter(this, movieList);
+        imageAdapter = new ImageAdapter(getApplicationContext(), movieList);
 
         GridView gridView = (GridView) findViewById(R.id.gridview_movies);
         gridView.setAdapter(imageAdapter);
@@ -128,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
 //            String date ="";
             // Create array of Movie objects that stores data from the JSON string
             String[] movies = new String[resultsArray.length()];
-            mv:
+
             for (int i=0;i<resultsArray.length();i++){
                 JSONObject movieInfo = resultsArray.getJSONObject(i);
 
@@ -137,8 +137,8 @@ public class MainActivity extends AppCompatActivity {
 //                details = movieInfo.getString(TMDB_OVERVIEW);
 //                rating = movieInfo.getString(TMDB_VOTE_AVERAGE);
 //                date = movieInfo.getString(TMDB_RELEASE_DATE);
-                if (poster == null){
-                    continue mv;
+                if (poster.equals("")){
+                    // next
                 }else {
                     movies[i] = "https://image.tmdb.org/t/p/w185" + poster;
                 }

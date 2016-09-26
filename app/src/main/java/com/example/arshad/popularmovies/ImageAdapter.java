@@ -1,22 +1,14 @@
 package com.example.arshad.popularmovies;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 
-import org.json.JSONException;
+import com.squareup.picasso.Picasso;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -35,10 +27,8 @@ public class ImageAdapter extends BaseAdapter {
         imageURLArray = imageArray;
     }
 
-    private static class ViewHolder {
+    public static class ViewHolder {
         ImageView imageView;
-        String imageURL;
-        Bitmap bitmap;
 
     }
 
@@ -70,55 +60,8 @@ public class ImageAdapter extends BaseAdapter {
         }
 
         viewHolder = (ViewHolder)view.getTag();
-        viewHolder.imageURL = imageURLArray.get(position);
-        new DownloadAsyncTask().execute(viewHolder);
+        String imageURL = imageURLArray.get(position);
+        Picasso.with(mContext).load(imageURL).into(viewHolder.imageView);
         return view;
     }
-
-
-    private class DownloadAsyncTask extends AsyncTask<ViewHolder, Void, ViewHolder> {
-
-        @Override
-        protected ViewHolder doInBackground(ViewHolder... params) {
-            // TODO Auto-generated method stub
-            //load image directly
-            ViewHolder viewHolder = params[0];
-            try {
-                URL mimageURL = new URL(viewHolder.imageURL);
-                HttpURLConnection connection = (HttpURLConnection) mimageURL.openConnection();
-                connection.setRequestMethod("GET");
-                connection.connect();
-                InputStream input = connection.getInputStream();
-                Log.v("get image from: ", mimageURL.toString());
-                viewHolder.bitmap = BitmapFactory.decodeStream(input);
-            } catch (IOException e) {
-                // TODO: handle exception
-                Log.e("error", "Downloading Image Failed");
-                viewHolder.bitmap = null;
-            }
-            try {
-                return viewHolder;
-            } catch (Exception e) {
-                Log.e("error", e.getMessage(), e);
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(ViewHolder result) {
-            // TODO Auto-generated method stub
-            if (result.bitmap == null) {
-                result.imageView.setImageResource(R.drawable.postthumb_loading);
-            } else {
-                result.imageView.setImageBitmap(result.bitmap);
-            }
-        }
-
-
-
-    }
-
-
-
 }
