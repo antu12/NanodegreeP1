@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-        imageAdapter = new ImageAdapter(getApplicationContext(), movieList);
+        Log.v("count: ", ""+movieList.size());
+        imageAdapter = new ImageAdapter(this, movieList);
 
         GridView gridView = (GridView) findViewById(R.id.gridview_movies);
         gridView.setAdapter(imageAdapter);
@@ -98,6 +98,7 @@ public class MainActivity extends AppCompatActivity {
                 movieList.clear();
                 for (String movieStr : result){
                     movieList.add(movieStr);
+
                 }
             }
         }

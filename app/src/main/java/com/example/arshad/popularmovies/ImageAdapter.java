@@ -1,6 +1,7 @@
 package com.example.arshad.popularmovies;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,10 +59,10 @@ public class ImageAdapter extends BaseAdapter {
             viewHolder.imageView = (ImageView) view.findViewById(R.id.grid_item_image);
             view.setTag(viewHolder);
         }
-
-        viewHolder = (ViewHolder)view.getTag();
         String imageURL = imageURLArray.get(position);
+        viewHolder = (ViewHolder)view.getTag();
         Picasso.with(mContext).load(imageURL).into(viewHolder.imageView);
+        Log.v("image: ", imageURL);
         return view;
     }
 }
