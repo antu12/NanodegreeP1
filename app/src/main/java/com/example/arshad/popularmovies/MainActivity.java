@@ -54,6 +54,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+
     @Override
     protected void onStart() {
         super.onStart();
@@ -98,8 +99,8 @@ public class MainActivity extends AppCompatActivity {
                 movieList.clear();
                 for (String movieStr : result){
                     movieList.add(movieStr);
-
                 }
+            imageAdapter.notifyDataSetChanged();
             }
         }
 

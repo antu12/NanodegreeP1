@@ -49,6 +49,11 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+    }
+
+    @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         // TODO Auto-generated method stub
         View view = convertView;
