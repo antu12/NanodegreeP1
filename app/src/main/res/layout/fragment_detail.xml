@@ -1,68 +1,101 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.arshad.popularmovies.DetailsActivity$PlaceholderFragment">
+    android:layout_height="match_parent">
 
-    <!-- TODO: Update blank fragment layout -->
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/details_image"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="5dp"
-        android:src="@drawable/postthumb_loading"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/details_overview"
-        android:text="@string/details_overview"
-        android:layout_below="@+id/details_image"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="76dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/details_title"
-        android:text="@string/details_title"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/details_image"
-        android:layout_toEndOf="@+id/details_image"
-        android:layout_marginLeft="29dp"
-        android:layout_marginStart="29dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/details_reldate"
-        android:text="@string/details_release_date"
-        android:layout_marginTop="11dp"
-        android:layout_below="@+id/details_rating"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/details_rating"
-        android:text="@string/details_rating"
-        android:layout_below="@+id/details_overview"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="11dp" />
-
-    <TextView
-        android:layout_width="match_parent"
+    <RelativeLayout android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/detail_text"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        tools:context="com.example.arshad.popularmovies.DetailsActivity$PlaceholderFragment">
 
-</RelativeLayout>
+        <!-- TODO: Update blank fragment layout -->
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/details_image"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/postthumb_loading"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/details_overviewDetails"
+            android:layout_below="@+id/details_overview"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="7dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/details_rating"
+            android:text="@string/details_rating"
+            android:layout_below="@+id/details_overviewDetails"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="11dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/details_reldateDetail"
+            android:layout_below="@+id/details_reldate"
+            android:layout_alignLeft="@+id/details_image"
+            android:layout_alignStart="@+id/details_image"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="11dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/details_ratingDetail"
+            android:layout_below="@+id/details_rating"
+            android:layout_alignLeft="@+id/details_reldateDetail"
+            android:layout_alignStart="@+id/details_reldateDetail"
+            android:layout_marginTop="10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/details_overview"
+            android:text="@string/details_overview"
+            android:layout_marginTop="15dp"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_below="@+id/details_image"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/details_reldate"
+            android:text="@string/details_release_date"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:layout_marginTop="11dp"
+            android:layout_below="@+id/details_ratingDetail"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/details_title"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:text="@string/details_title"
+            android:layout_toRightOf="@+id/details_image"
+            android:layout_alignTop="@+id/details_image"
+            android:layout_marginLeft="7dp"/>
+
+
+    </RelativeLayout>
+
+</ScrollView>

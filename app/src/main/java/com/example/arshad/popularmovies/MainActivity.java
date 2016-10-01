@@ -33,12 +33,13 @@ public class MainActivity extends AppCompatActivity {
     private final String LOG_TAG = MainActivity.class.getSimpleName();
     ImageAdapter imageAdapter;
     ArrayList<String> movieList = new ArrayList<String>();
+    ArrayList<ArrayList<String>> movieListFin = new ArrayList<ArrayList<String>>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        
         Log.v("count: ", ""+movieList.size());
         imageAdapter = new ImageAdapter(this, movieList);
 
@@ -48,7 +49,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String text = (String) imageAdapter.getItem(position);
-                Intent intent = new Intent(getApplicationContext(), DetailsActivity.class).putExtra(Intent.EXTRA_TEXT, text);
+                Movie moviepass = new Movie();
+                moviepass.setTitle(movieListFin.get(position).get(0));
+                moviepass.setPoster(movieListFin.get(position).get(1));
+                moviepass.setOverview(movieListFin.get(position).get(2));
+                moviepass.setRating(movieListFin.get(position).get(3));
+                moviepass.setDate(movieListFin.get(position).get(4));
+                ArrayList<Movie> mvi = new ArrayList<>();
+                mvi.add(moviepass);
+                Intent intent = new Intent(getApplicationContext(), DetailsActivity.class).putParcelableArrayListExtra("movie",mvi);
                 startActivity(intent);
             }
         });
@@ -113,35 +122,43 @@ public class MainActivity extends AppCompatActivity {
          */
         private String[] getMovieInfoFromJson(String moviesJsonStr) throws JSONException {
             final String TMDB_RESULTS = "results";
-//            final String TMDB_ORIGINAL_TITLE = "original_title";
+            final String TMDB_ORIGINAL_TITLE = "original_title";
             final String TMDB_POSTER_PATH = "poster_path";
-//            final String TMDB_OVERVIEW = "overview";
-//            final String TMDB_VOTE_AVERAGE = "vote_average";
-//            final String TMDB_RELEASE_DATE = "release_date";
+            final String TMDB_OVERVIEW = "overview";
+            final String TMDB_VOTE_AVERAGE = "vote_average";
+            final String TMDB_RELEASE_DATE = "release_date";
 
             // Get the array containing hte movies found
             JSONObject moviesJson = new JSONObject(moviesJsonStr);
             JSONArray resultsArray = moviesJson.getJSONArray(TMDB_RESULTS);
 
-//            String title ="";
+            String title ="";
             String poster = "";
-//            String details ="";
-//            String rating = "";
-//            String date ="";
+            String details ="";
+            String rating = "";
+            String date ="";
             // Create array of Movie objects that stores data from the JSON string
             String[] movies = new String[resultsArray.length()];
+            movieListFin.clear();
 
             for (int i=0;i<resultsArray.length();i++){
+                movieListFin.add(new ArrayList<String>());
                 JSONObject movieInfo = resultsArray.getJSONObject(i);
 
-//                title = movieInfo.getString(TMDB_ORIGINAL_TITLE);
+                title = movieInfo.getString(TMDB_ORIGINAL_TITLE);
                 poster = movieInfo.getString(TMDB_POSTER_PATH);
-//                details = movieInfo.getString(TMDB_OVERVIEW);
-//                rating = movieInfo.getString(TMDB_VOTE_AVERAGE);
-//                date = movieInfo.getString(TMDB_RELEASE_DATE);
+                details = movieInfo.getString(TMDB_OVERVIEW);
+                rating = movieInfo.getString(TMDB_VOTE_AVERAGE);
+                date = movieInfo.getString(TMDB_RELEASE_DATE);
                 if (poster.equals("")){
                     // next
                 }else {
+                    movieListFin.get(i).add(title);
+                    movieListFin.get(i).add("https://image.tmdb.org/t/p/w185" + poster);
+                    movieListFin.get(i).add(details);
+                    movieListFin.get(i).add(rating);
+                    movieListFin.get(i).add(date);
+
                     movies[i] = "https://image.tmdb.org/t/p/w185" + poster;
                 }
             }

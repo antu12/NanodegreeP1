@@ -9,10 +9,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
+
+import java.util.ArrayList;
 
 public class DetailsActivity extends ActionBarActivity {
 
+
+    static ArrayList<Movie> mvi = new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +28,7 @@ public class DetailsActivity extends ActionBarActivity {
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.container, new PlaceholderFragment())
                     .commit();
+            mvi = this.getIntent().getParcelableArrayListExtra("movie");
         }
     }
 
@@ -67,9 +75,12 @@ public class DetailsActivity extends ActionBarActivity {
                                  Bundle savedInstanceState) {
             Intent intent = getActivity().getIntent();
             View rootView = inflater.inflate(R.layout.fragment_detail, container, false);
-            if (intent != null && intent.hasExtra(Intent.EXTRA_TEXT)){
-                mForecastStr = intent.getStringExtra(Intent.EXTRA_TEXT);
-                ((TextView) rootView.findViewById(R.id.detail_text)).setText(mForecastStr);
+            if (intent != null){
+                ((TextView) rootView.findViewById(R.id.details_title)).setText(mvi.get(0).getTitle());
+                Picasso.with(rootView.getContext()).load(mvi.get(0).getPoster()).into((ImageView) rootView.findViewById(R.id.details_image));
+                ((TextView) rootView.findViewById(R.id.details_overviewDetails)).setText(mvi.get(0).getOverview());
+                ((TextView) rootView.findViewById(R.id.details_ratingDetail)).setText(mvi.get(0).getRating());
+                ((TextView) rootView.findViewById(R.id.details_reldateDetail)).setText(mvi.get(0).getDate());
             }
             return rootView;
         }
