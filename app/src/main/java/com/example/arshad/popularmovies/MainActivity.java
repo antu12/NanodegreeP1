@@ -29,7 +29,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    private final String api_key="c666b3c1cbc279a9c62d496263897871";
+    private final String api_key="Give your key";
     private final String LOG_TAG = MainActivity.class.getSimpleName();
     ImageAdapter imageAdapter;
     ArrayList<String> movieList = new ArrayList<String>();
