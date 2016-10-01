@@ -63,8 +63,6 @@ public class DetailsActivity extends ActionBarActivity {
     public static class PlaceholderFragment extends Fragment {
 
         private static final String LOG_TAG = PlaceholderFragment.class.getSimpleName();
-        private static final String share_hashtag = "#SunShineApp";
-        private String mForecastStr;
 
         public PlaceholderFragment() {
             setHasOptionsMenu(true);
